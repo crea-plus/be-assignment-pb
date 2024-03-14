@@ -1,5 +1,9 @@
 # Phonebook Project
 
+Fork this starter project repo, make the app according to the specification below and then submit a Pull Request. We will get back to you with feedback.
+
+Limit yourself to 1 or at most 2 hours of work. You do not have to finish all the requirements - after an hour is up, check the state of your work, finish up what you are doing and submit a PR. Focus on a small set of features and make those work well, write clean code and make use of appropriate design principles. This is more important than finishing everything. On the other hand if you find the task too simple and finish early, feel free to surprise us with some additional features.
+
 ### Assignment Info
 
 You are going to create a working version of a product called Phonebook.
