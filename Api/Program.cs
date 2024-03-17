@@ -1,4 +1,10 @@
+using Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<PhonebookContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(PhonebookContext))));
 
 // Add services to the container.
 
