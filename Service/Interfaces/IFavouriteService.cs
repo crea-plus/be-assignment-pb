@@ -9,4 +9,9 @@ public interface IFavouriteService
 	/// </summary>
 	public Task<FavouriteDto> GetFavouriteContacts();
 
+	/// <summary>
+	/// Add favourite contact to logged user
+	/// </summary>
+	/// <param name="contactId"></param>
+	public Task<bool> AddFavouriteContact(Guid contactId);
 }

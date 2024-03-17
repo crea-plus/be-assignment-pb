@@ -32,6 +32,14 @@ public class ContactService : IContactService
 			.ToListAsync();
 	}
 
+	public async Task<ContactDto> GetContactByIdAsync(Guid id)
+	{
+		Contact contact = await _dbContext.Contacts.FirstOrDefaultAsync(x => x.Id == id)
+			?? throw new ArgumentException($"Contact with provided ID does not exist");
+
+		return _mapper.Map<ContactDto>(contact);
+	}
+
 	public async Task<ContactDto> CreateContactAsync(CreateContactRequest request)
 	{
 		if (await IsContactUnique(request))

@@ -12,6 +12,13 @@ public interface IContactService
 	public Task<List<ContactDto>> GetContactsAsync();
 
 	/// <summary>
+	/// Get Contact by Id
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
+	public Task<ContactDto> GetContactByIdAsync(Guid id);
+
+	/// <summary>
 	/// Create new Contact
 	/// </summary>
 	/// <param name="request"></param>
