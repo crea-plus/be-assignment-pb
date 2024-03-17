@@ -1,6 +1,8 @@
-﻿using Data;
+﻿using AutoMapper;
+using Data;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using Service.Services;
 
 namespace UnitTests.Services;
@@ -36,14 +38,15 @@ public class ContactServiceTests
 			PhoneNumber = "+38612345678"
 		};
 		await dbContext.Contacts.AddAsync(contact);
-
 		await dbContext.SaveChangesAsync();
+
 		return dbContext;
 	}
 
 	private ContactService GetService(PhonebookContext dbContext)
 	{
-		return new ContactService(dbContext);
+		var mapperMock = new Mock<IMapper>();
+		return new ContactService(dbContext, mapperMock.Object);
 	}
 
 	[Test]
@@ -57,5 +60,41 @@ public class ContactServiceTests
 		Assert.That(result, Is.Not.Null);
 		Assert.That(result, Is.Not.Empty);
 		Assert.That(result.Count(), Is.EqualTo(dbcontext.Contacts.Count()));
+	}
+
+	[Test]
+	public async Task CreateContactAsync_NotUnique_ThrowsArgumentException()
+	{
+		PhonebookContext dbcontext = await GetDbContext();
+		ContactService service = GetService(dbcontext);
+
+		String nameInUse = (await dbcontext.Contacts.FirstAsync()).Name;
+		var request = new Service.DTOs.Requests.CreateContactRequest()
+		{
+			Name = nameInUse,
+			PhoneNumber = "+38678945612"
+		};
+
+		ArgumentException? ex = Assert.ThrowsAsync<ArgumentException>(() => service.CreateContactAsync(request));
+
+		Assert.That(ex, Is.Not.Null);
+		Assert.That(ex.Message, Is.EqualTo("Contact with provided name/phone number already exist"));
+	}
+
+	[Test]
+	public async Task CreateContactAsync_Unique_ContactCreated()
+	{
+		PhonebookContext dbcontext = await GetDbContext();
+		ContactService service = GetService(dbcontext);
+
+		var request = new Service.DTOs.Requests.CreateContactRequest()
+		{
+			Name = "name not in use",
+			PhoneNumber = "+38678945613"
+		};
+
+		Service.DTOs.ContactDto dto = await service.CreateContactAsync(request);
+
+		Assert.That(dbcontext.Contacts.Any(x => x.Id == dto.Id && x.Name == request.Name && x.PhoneNumber == request.PhoneNumber), Is.True);
 	}
 }

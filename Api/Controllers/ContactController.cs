@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Service.DTOs.Requests;
 using Service.Interfaces;
 
 namespace Api.Controllers;
@@ -22,5 +24,16 @@ public class ContactController : ControllerBase
 	public async Task<IActionResult> GetAsync()
 	{
 		return Ok(await _contactService.GetContactsAsync());
+	}
+
+	/// <summary>
+	/// Create new Contact
+	/// </summary>
+	/// <param name="request"></param>
+	/// <returns></returns>
+	[HttpPost, Authorize(Policy = "Admin")]
+	public async Task<IActionResult> CreateAsync(CreateContactRequest request)
+	{
+		return Ok(await _contactService.CreateContactAsync(request));
 	}
 }

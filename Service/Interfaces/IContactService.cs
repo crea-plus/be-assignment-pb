@@ -1,4 +1,5 @@
 ﻿using Service.DTOs;
+using Service.DTOs.Requests;
 
 namespace Service.Interfaces;
 
@@ -9,4 +10,11 @@ public interface IContactService
 	/// </summary>
 	/// <returns></returns>
 	public Task<List<ContactDto>> GetContactsAsync();
+
+	/// <summary>
+	/// Create new Contact
+	/// </summary>
+	/// <param name="request"></param>
+	/// <returns></returns>
+	public Task<ContactDto> CreateContactAsync(CreateContactRequest request);
 }
