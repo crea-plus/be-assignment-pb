@@ -14,9 +14,9 @@ Due to time constraints, some tasks were not completed as intended.
 This includes QuoteApi integration (issues with apikey generatation by QuoteApi web client), the absence of integration and unit tests, and the unavailability of functionality to unmark favorites.
 
 ### Possible Improvements
-JWT Refreshment: enhance user experience by implementing JWT token refreshment mechanisms.
-Azure Blob Storage: integrate Azure Blob storage for efficient handling of images associated with contracts.
-Dotnet Identity: implement Dotnet Identity for advanced user management functionalities and role-based access control.
+- JWT Refreshment: enhance user experience by implementing JWT token refreshment mechanisms.
+- Azure Blob Storage: integrate Azure Blob storage for efficient handling of images associated with contracts.
+- Dotnet Identity: implement Dotnet Identity for advanced user management functionalities and role-based access control.
 
 ---
 
