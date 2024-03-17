@@ -3,6 +3,10 @@
 Repository contains codebase focused on managing user, contracts and favorites. 
 Below is an overview of the key features implemented, tasks to be completed, and potential improvements for future development.
 
+I opted for an N-layer architecture, however, if there would be no time constraints I'd have chosen a Clean Architecture instead.
+While the N-layer approach offers efficiency, Clean Architecture would have provided better maintainability & testability.
+Current architecture serves as a solid foundation for the application's functionalities.
+
 ### Things Done
 - Authentication & Authorization Logic: implemented Bearer token authentication and authorization mechanisms to secure the application.
 - Contract operations: endpoints for handling GET, POST, and PUT requests.
