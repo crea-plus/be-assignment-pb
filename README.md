@@ -1,5 +1,29 @@
 # Phonebook Project
 
+Repository contains codebase focused on managing user, contracts and favorites. 
+Below is an overview of the key features implemented, tasks to be completed, and potential improvements for future development.
+
+I opted for an N-layer architecture, however, if there would be no time constraints I'd have chosen a Clean Architecture instead.
+While the N-layer approach offers efficiency, Clean Architecture would have provided better maintainability & testability.
+Current architecture serves as a solid foundation for the application's functionalities.
+
+### Things Done
+- Authentication & Authorization Logic: implemented Bearer token authentication and authorization mechanisms to secure the application.
+- Contract operations: endpoints for handling GET, POST, and PUT requests.
+- Favorite Management: implemented functionality for users to add retrieve favorites using GET and POST requests.
+- Docker Support: integrated Docker for containerization.
+
+### TODO
+Due to time constraints, some tasks were not completed as intended. 
+This includes QuoteApi integration (issues with apikey generatation by QuoteApi web client), the absence of integration and unit tests, and the unavailability of functionality to unmark favorites.
+
+### Possible Improvements
+- JWT Refreshment: enhance user experience by implementing JWT token refreshment mechanisms.
+- Azure Blob Storage: integrate Azure Blob storage for efficient handling of images associated with contracts.
+- Dotnet Identity: implement Dotnet Identity for advanced user management functionalities and role-based access control.
+
+---
+
 Fork this starter project repo, make the app according to the specification below and then submit a Pull Request. We will get back to you with feedback.
 
 Limit yourself to 1 or at most 2 hours of work. You do not have to finish all the requirements - after an hour is up, check the state of your work, finish up what you are doing and submit a PR. Focus on a small set of features and make those work well, write clean code and make use of appropriate design principles. This is more important than finishing everything. On the other hand if you find the task too simple and finish early, feel free to surprise us with some additional features.
@@ -49,3 +73,4 @@ Pay special attention to the construction of the REST API and add different laye
 We are not looking for a perfect app or 100% test coverage. It is more important to us that design ideas are properly demonstrated.
 
 Good luck!
+
