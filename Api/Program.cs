@@ -12,6 +12,7 @@ builder.Services.AddDbContext<PhonebookContext>(options =>
 // Add services to the container.
 builder.Services.AddAutoMapper(Assembly.Load("Service"));
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
