@@ -1,8 +1,12 @@
 using Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Service.DTOs.Configuration;
 using Service.Interfaces;
 using Service.Services;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,25 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configure Bearer authentication
+var tokenValidation = builder.Configuration.GetSection(nameof(TokenValidation)).Get<TokenValidation>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(options =>
+	{
+		options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+		{
+			ValidIssuer = tokenValidation.Issuer,
+			ValidAudience = tokenValidation.Audience,
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenValidation.Key))
+		};
+	});
+
+// Configure authorization policy
+builder.Services.AddAuthorization(options =>
+{
+	options.AddPolicy("Admin", policy => policy.RequireClaim("Admin", "True")); // 'Admin' claim must be set to 'True'
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +53,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
