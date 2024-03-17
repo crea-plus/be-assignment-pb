@@ -1,5 +1,8 @@
 using Data;
 using Microsoft.EntityFrameworkCore;
+using Service.Interfaces;
+using Service.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +10,8 @@ builder.Services.AddDbContext<PhonebookContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(PhonebookContext))));
 
 // Add services to the container.
+builder.Services.AddAutoMapper(Assembly.Load("Service"));
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
