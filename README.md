@@ -49,3 +49,4 @@ Pay special attention to the construction of the REST API and add different laye
 We are not looking for a perfect app or 100% test coverage. It is more important to us that design ideas are properly demonstrated.
 
 Good luck!
+
