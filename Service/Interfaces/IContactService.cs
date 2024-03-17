@@ -17,4 +17,11 @@ public interface IContactService
 	/// <param name="request"></param>
 	/// <returns></returns>
 	public Task<ContactDto> CreateContactAsync(CreateContactRequest request);
+
+	/// <summary>
+	/// Update specific Contact
+	/// </summary>
+	/// <param name="request"></param>
+	/// <returns></returns>
+	public Task<ContactDto> UpdateContactAsync(UpdateContactRequest request);
 }

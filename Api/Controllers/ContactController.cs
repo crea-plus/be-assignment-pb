@@ -36,4 +36,15 @@ public class ContactController : ControllerBase
 	{
 		return Ok(await _contactService.CreateContactAsync(request));
 	}
+
+	/// <summary>
+	/// Update specific Contact
+	/// </summary>
+	/// <param name="request"></param>
+	/// <returns></returns>
+	[HttpPut, Authorize(Policy = "Admin")]
+	public async Task<IActionResult> UpdateAsync([FromBody] UpdateContactRequest request)
+	{
+		return Ok(await _contactService.UpdateContactAsync(request));
+	}
 }
