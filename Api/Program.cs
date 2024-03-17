@@ -28,4 +28,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// run migrations on startup
+using IServiceScope scope = app.Services.CreateScope();
+PhonebookContext dbContext = scope.ServiceProvider.GetRequiredService<PhonebookContext>();
+dbContext.Database.Migrate();
+
 app.Run();
