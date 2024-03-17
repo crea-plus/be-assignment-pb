@@ -18,4 +18,10 @@ public interface IUserService
 	/// <param name="request"></param>
 	/// <returns>Bearer token</returns>
 	public Task<string> LoginAsync(LoginRequest request);
+
+	/// <summary>
+	/// Get User based on JWT Name claim
+	/// </summary>
+	/// <returns></returns>
+	public Task<UserDto> GetUserFromClaim();
 }

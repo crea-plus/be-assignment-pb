@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data;
 using Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -19,12 +20,14 @@ public class UserService : IUserService
 {
 	private readonly PhonebookContext _dbContext;
 	private readonly IMapper _mapper;
+	private readonly IHttpContextAccessor _httpContextAccessor;
 	private readonly TokenValidation _tokenValidation;
 
-	public UserService(PhonebookContext dbContext, IMapper mapper, IConfiguration configuration)
+	public UserService(PhonebookContext dbContext, IMapper mapper, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
 		_dbContext = dbContext;
 		_mapper = mapper;
+		_httpContextAccessor = httpContextAccessor;
 
 		_tokenValidation = configuration.GetSection(nameof(TokenValidation)).Get<TokenValidation>()
 			?? throw new ArgumentException("TokenValidation configuration missing");
@@ -109,5 +112,14 @@ public class UserService : IUserService
 			signingCredentials: credentials);
 
 		return new JwtSecurityTokenHandler().WriteToken(token);
+	}
+
+	public async Task<UserDto> GetUserFromClaim()
+	{
+		Claim usernameClaim = _httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Name);
+		User user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == usernameClaim.Value)
+			?? throw new UnauthorizedAccessException();
+
+		return _mapper.Map<UserDto>(user);
 	}
 }
